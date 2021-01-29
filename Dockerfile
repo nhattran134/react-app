@@ -2,7 +2,6 @@
 FROM node:alpine
 
 RUN apk add g++ make python
-RUN apk add --no-cache autoconf automake libtool nasm make pkg-config git apt-utils
 
 # Create app directory
 RUN mkdir -p /usr/src/app
