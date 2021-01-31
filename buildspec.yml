@@ -7,6 +7,12 @@ phases:
       - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
   pre_build:
     commands:
+      - echo Initialize Testing environment
+      - docker build -t react-test -f Dockerfile.test --no-cache .
+      - echo Run test
+      - docker run --rm react-test
+      - echo Clean up Docker test
+      - docker rmi react-test
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
